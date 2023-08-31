@@ -64,7 +64,7 @@ public class CommonDatabase implements Database{
         List<Object> result = new ArrayList<>();
 
         if (parts.length == 3) {
-            if (parts[2].equals("customers")) {
+            if (parts[2].equals("clients")) {
                 result.addAll(clients);
             }
 
@@ -74,7 +74,7 @@ public class CommonDatabase implements Database{
         }
 
         if (parts.length == 6) {
-            if (parts[1].equals("customer")) {
+            if (parts[1].equals("client")) {
                 result.add(clients.stream().filter(x -> x.getId() == Integer.parseInt(parts[5])).toList().get(0));
             }
 
