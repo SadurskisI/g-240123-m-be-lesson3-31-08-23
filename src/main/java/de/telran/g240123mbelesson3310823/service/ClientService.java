@@ -12,9 +12,9 @@ public interface ClientService {
 
     void add(Client client);
 
-    void deleteById(int id);
+    void removeById(int id);
 
-    void deleteByName(String name);
+    void removeByName(String name);
 
     int getCount();
 
@@ -22,9 +22,9 @@ public interface ClientService {
 
     double getAveragePriceById(int id);
 
-    void addToCartById(int clientId, int productId);
+    void addToBasketById(int clientId, int productId);
 
-    void deleteFromCart(int clientId, int productId);
+    void deleteFromBasket(int clientId, int productId);
 
-    void clearCart(int clientId);
+    void clearBasket(int clientId);
 }

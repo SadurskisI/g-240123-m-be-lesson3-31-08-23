@@ -33,12 +33,12 @@ public class CommonClientService implements ClientService{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void removeById(int id) {
         repository.removeById(id);
     }
 
     @Override
-    public void deleteByName(String name) {
+    public void removeByName(String name) {
         int idToDelete = repository.getClients().stream().filter(x -> x.getName().equals(name)).findFirst().get().getId();
         repository.removeById(idToDelete);
     }
@@ -56,25 +56,25 @@ public class CommonClientService implements ClientService{
     @Override
     public double getAveragePriceById(int id) {
         Basket basket = repository.findById(id).getBasket();
-        return basket.getTotalCost() / basket.getProducts().size();
+        return (basket.getTotalCost() / basket.getProducts().size());
 
     }
 
     @Override
-    public void addToCartById(int clientId, int productId) {
+    public void addToBasketById(int clientId, int productId) {
         Client client = repository.findById(clientId);
         Product product = productService.getById(productId);
         client.getBasket().addProduct(product);
     }
 
     @Override
-    public void deleteFromCart(int clientId, int productId) {
+    public void deleteFromBasket(int clientId, int productId) {
         Client client = repository.findById(clientId);
         client.getBasket().getProducts().removeIf(x -> x.getId() == productId);
     }
 
     @Override
-    public void clearCart(int clientId) {
+    public void clearBasket(int clientId) {
         Client client = repository.findById(clientId);
         client.getBasket().getProducts().clear();
     }
