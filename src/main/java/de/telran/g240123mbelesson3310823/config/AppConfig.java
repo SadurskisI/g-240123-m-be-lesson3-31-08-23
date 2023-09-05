@@ -2,12 +2,9 @@ package de.telran.g240123mbelesson3310823.config;
 
 import de.telran.g240123mbelesson3310823.domain.databasae.CommonDatabase;
 import de.telran.g240123mbelesson3310823.domain.databasae.Database;
-import de.telran.g240123mbelesson3310823.repository.ClientRepository;
-import de.telran.g240123mbelesson3310823.repository.CommonClientRepository;
-import de.telran.g240123mbelesson3310823.repository.CommonProductRepository;
-import de.telran.g240123mbelesson3310823.repository.ProductRepository;
+import de.telran.g240123mbelesson3310823.repository.*;
 import de.telran.g240123mbelesson3310823.service.ClientService;
-import de.telran.g240123mbelesson3310823.service.CommonClientService;
+import de.telran.g240123mbelesson3310823.service.CommonCustomerService;
 import de.telran.g240123mbelesson3310823.service.CommonProductService;
 import de.telran.g240123mbelesson3310823.service.ProductService;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +19,7 @@ public class AppConfig {
     }
     @Bean
     public ClientService clientService(){
-        return new CommonClientService();
+        return new CommonCustomerService();
     }
 
     @Bean
@@ -32,11 +29,11 @@ public class AppConfig {
 
     @Bean
     public ProductRepository productRepository(){
-        return new CommonProductRepository();
+        return new MySqlProductRepository();
     }
 
     @Bean
-    public ClientRepository clientRepository(){
-        return new CommonClientRepository();
+    public CustomerRepository clientRepository(){
+        return new CommonCustomerRepository();
     }
 }
