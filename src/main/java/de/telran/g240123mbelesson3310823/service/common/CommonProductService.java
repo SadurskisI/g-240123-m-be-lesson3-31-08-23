@@ -1,13 +1,14 @@
-package de.telran.g240123mbelesson3310823.service;
+package de.telran.g240123mbelesson3310823.service.common;
 
 import de.telran.g240123mbelesson3310823.domain.entity.Product;
 import de.telran.g240123mbelesson3310823.repository.ProductRepository;
+import de.telran.g240123mbelesson3310823.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 
-public class CommonProductService implements ProductService{
+public class CommonProductService implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;

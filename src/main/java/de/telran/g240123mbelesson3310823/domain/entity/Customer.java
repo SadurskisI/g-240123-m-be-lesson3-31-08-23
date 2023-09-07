@@ -1,10 +1,10 @@
 package de.telran.g240123mbelesson3310823.domain.entity;
 
-public interface Client {
+public interface Customer {
 
     int getId();
 
     String getName();
 
-    Basket getBasket();
+    Cart getCart();
 }

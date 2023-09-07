@@ -1,5 +1,6 @@
-package de.telran.g240123mbelesson3310823.domain.entity;
+package de.telran.g240123mbelesson3310823.domain.entity.common;
 
+import de.telran.g240123mbelesson3310823.domain.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

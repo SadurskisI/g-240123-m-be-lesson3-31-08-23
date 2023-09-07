@@ -1,6 +1,9 @@
 package de.telran.g240123mbelesson3310823.domain.databasae;
 
 import de.telran.g240123mbelesson3310823.domain.entity.*;
+import de.telran.g240123mbelesson3310823.domain.entity.common.CommonCart;
+import de.telran.g240123mbelesson3310823.domain.entity.common.CommonCustomer;
+import de.telran.g240123mbelesson3310823.domain.entity.common.CommonProduct;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ import java.util.List;
 public class CommonDatabase implements Database{
 
     private List<Product> products = new ArrayList<>();
-    private List<Client> clients = new ArrayList<>();
+    private List<Customer> customers = new ArrayList<>();
 
     private int idProductCounter = 5;
     private int idClientCounter = 3;
@@ -22,9 +25,9 @@ public class CommonDatabase implements Database{
         products.add(new CommonProduct(5,"Eggs",3.5));
 
 
-        clients.add(new CommonClient(1,"Vasya",new CommonBasket()));
-        clients.add(new CommonClient(2,"Anya",new CommonBasket()));
-        clients.add(new CommonClient(3,"Masha",new CommonBasket()));
+        customers.add(new CommonCustomer(1,"Vasya",new CommonCart()));
+        customers.add(new CommonCustomer(2,"Anya",new CommonCart()));
+        customers.add(new CommonCustomer(3,"Masha",new CommonCart()));
     }
 
 
@@ -38,7 +41,7 @@ public class CommonDatabase implements Database{
         String[] parts = query.split(" ");
         if (parts[0].equals("Add")){
             if (parts[2].equals("client")){
-                clients.add(new CommonClient(++idClientCounter,parts[5],new CommonBasket()));
+                customers.add(new CommonCustomer(++idClientCounter,parts[5],new CommonCart()));
             }
             if (parts[2].equals("product")){
                 products.add(new CommonProduct(++idProductCounter,parts[5],Double.parseDouble(parts[8])));
@@ -46,7 +49,7 @@ public class CommonDatabase implements Database{
         }
         if (parts[0].equals("Delete")){
             if (parts[1].equals("client")){
-                clients.removeIf(x -> x.getId()==Integer.parseInt(parts[5]));
+                customers.removeIf(x -> x.getId()==Integer.parseInt(parts[5]));
             }
             if (parts[1].equals("product")){
                 products.removeIf(x -> x.getId()==Integer.parseInt(parts[5]));
@@ -65,7 +68,7 @@ public class CommonDatabase implements Database{
 
         if (parts.length == 3) {
             if (parts[2].equals("clients")) {
-                result.addAll(clients);
+                result.addAll(customers);
             }
 
             if (parts[2].equals("products")) {
@@ -75,7 +78,7 @@ public class CommonDatabase implements Database{
 
         if (parts.length == 6) {
             if (parts[1].equals("client")) {
-                result.add(clients.stream().filter(x -> x.getId() == Integer.parseInt(parts[5])).toList().get(0));
+                result.add(customers.stream().filter(x -> x.getId() == Integer.parseInt(parts[5])).toList().get(0));
             }
 
             if (parts[1].equals("product")) {

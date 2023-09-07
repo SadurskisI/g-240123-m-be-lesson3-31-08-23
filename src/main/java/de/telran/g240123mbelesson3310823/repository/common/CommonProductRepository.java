@@ -1,7 +1,8 @@
-package de.telran.g240123mbelesson3310823.repository;
+package de.telran.g240123mbelesson3310823.repository.common;
 
 import de.telran.g240123mbelesson3310823.domain.databasae.Database;
 import de.telran.g240123mbelesson3310823.domain.entity.Product;
+import de.telran.g240123mbelesson3310823.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;

@@ -1,13 +1,15 @@
-package de.telran.g240123mbelesson3310823.service;
+package de.telran.g240123mbelesson3310823.service.common;
 
-import de.telran.g240123mbelesson3310823.domain.entity.Basket;
-import de.telran.g240123mbelesson3310823.domain.entity.Client;
+import de.telran.g240123mbelesson3310823.domain.entity.Cart;
+import de.telran.g240123mbelesson3310823.domain.entity.Customer;
 import de.telran.g240123mbelesson3310823.repository.CustomerRepository;
+import de.telran.g240123mbelesson3310823.service.CustomerService;
+import de.telran.g240123mbelesson3310823.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class CommonCustomerService implements ClientService {
+public class CommonCustomerService implements CustomerService {
 
     @Autowired
     private CustomerRepository repository;
@@ -16,18 +18,18 @@ public class CommonCustomerService implements ClientService {
     private ProductService productService;
 
     @Override
-    public List<Client> getAll() {
+    public List<Customer> getAll() {
         return repository.getAll();
     }
 
     @Override
-    public Client getById(int id) {
+    public Customer getById(int id) {
         return repository.getById(id);
     }
 
     @Override
-    public void add(Client client) {
-        repository.add(client.getName());
+    public void add(Customer customer) {
+        repository.add(customer.getName());
     }
 
     @Override
@@ -48,27 +50,27 @@ public class CommonCustomerService implements ClientService {
 
     @Override
     public double getTotalPriceById(int id) {
-        return repository.getById(id).getBasket().getTotalCost();
+        return repository.getById(id).getCart().getTotalCost();
     }
 
     @Override
     public double getAveragePriceById(int id) {
-        Basket basket = repository.getById(id).getBasket();
-        return basket.getTotalCost() / basket.getProducts().size();
+        Cart cart = repository.getById(id).getCart();
+        return cart.getTotalCost() / cart.getProducts().size();
     }
 
     @Override
-    public void addToBasketById(int customerId, int productId) {
+    public void addToCartById(int customerId, int productId) {
         repository.addToCartById(customerId, productId);
     }
 
     @Override
-    public void deleteFromBasket(int customerId, int productId) {
+    public void deleteFromCart(int customerId, int productId) {
         repository.deleteFromCart(customerId, productId);
     }
 
     @Override
-    public void clearBasket(int customerId) {
+    public void clearCart(int customerId) {
         repository.clearCart(customerId);
     }
 }

@@ -1,12 +1,14 @@
-package de.telran.g240123mbelesson3310823.domain.entity;
+package de.telran.g240123mbelesson3310823.domain.entity.common;
 
+import de.telran.g240123mbelesson3310823.domain.entity.Cart;
+import de.telran.g240123mbelesson3310823.domain.entity.Product;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class CommonBasket implements Basket{
+public class CommonCart implements Cart {
     private List<Product> products = new ArrayList<>();
     @Override
     public double getTotalCost() {

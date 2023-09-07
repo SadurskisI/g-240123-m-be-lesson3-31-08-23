@@ -1,8 +1,10 @@
-package de.telran.g240123mbelesson3310823.repository;
+package de.telran.g240123mbelesson3310823.repository.common;
 
 import de.telran.g240123mbelesson3310823.domain.databasae.Database;
-import de.telran.g240123mbelesson3310823.domain.entity.Client;
+import de.telran.g240123mbelesson3310823.domain.entity.Customer;
 import de.telran.g240123mbelesson3310823.domain.entity.Product;
+import de.telran.g240123mbelesson3310823.repository.CustomerRepository;
+import de.telran.g240123mbelesson3310823.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
@@ -17,18 +19,18 @@ public class CommonCustomerRepository implements CustomerRepository {
     private Database database;
 
     @Override
-    public List<Client> getAll() {
+    public List<Customer> getAll() {
         try {
-            return database.select("Select all customers").stream().map(x -> (Client) x).toList();
+            return database.select("Select all customers").stream().map(x -> (Customer) x).toList();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Client getById(int id) {
+    public Customer getById(int id) {
         try {
-            return (Client) database.select("Select customer where id = " + id).get(0);
+            return (Customer) database.select("Select customer where id = " + id).get(0);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -54,20 +56,20 @@ public class CommonCustomerRepository implements CustomerRepository {
 
     @Override
     public void addToCartById(int customerId, int productId) {
-        Client client = getById(customerId);
+        Customer customer = getById(customerId);
         Product product = productRepository.getById(productId);
-        client.getBasket().addProduct(product);
+        customer.getCart().addProduct(product);
     }
 
     @Override
     public void deleteFromCart(int customerId, int productId) {
-        Client client = getById(customerId);
-        client.getBasket().getProducts().removeIf(x -> x.getId() == productId);
+        Customer customer = getById(customerId);
+        customer.getCart().getProducts().removeIf(x -> x.getId() == productId);
     }
 
     @Override
     public void clearCart(int customerId) {
-        Client client = getById(customerId);
-        client.getBasket().getProducts().clear();
+        Customer customer = getById(customerId);
+        customer.getCart().getProducts().clear();
     }
 }

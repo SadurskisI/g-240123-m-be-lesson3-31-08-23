@@ -1,15 +1,15 @@
 package de.telran.g240123mbelesson3310823.repository;
 
-import de.telran.g240123mbelesson3310823.domain.entity.Client;
+import de.telran.g240123mbelesson3310823.domain.entity.Customer;
 
 
 import java.util.List;
 
 public interface CustomerRepository {
 
-    List<Client> getAll();
+    List<Customer> getAll();
 
-    Client getById(int id);
+    Customer getById(int id);
 
     void add(String name);
 

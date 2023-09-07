@@ -1,34 +1,34 @@
 package de.telran.g240123mbelesson3310823.controllers;
 
 
-import de.telran.g240123mbelesson3310823.domain.entity.Client;
-import de.telran.g240123mbelesson3310823.domain.entity.CommonClient;
-import de.telran.g240123mbelesson3310823.service.ClientService;
+import de.telran.g240123mbelesson3310823.domain.entity.Customer;
+import de.telran.g240123mbelesson3310823.domain.entity.common.CommonCustomer;
+import de.telran.g240123mbelesson3310823.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/client")
-public class CommonClientController {
+@RequestMapping("/customer")
+public class CustomerController {
 
     @Autowired
-    private ClientService service;
+    private CustomerService service;
 
     @GetMapping
-    public List<Client> getAll() {
+    public List<Customer> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public Client getById(@PathVariable int id) {
+    public Customer getById(@PathVariable int id) {
         return service.getById(id);
     }
 
     @PostMapping
-    public void add(@RequestBody CommonClient client) {
-        service.add(client);
+    public void add(@RequestBody CommonCustomer customer) {
+        service.add(customer);
     }
 
     @GetMapping("/removeById/{id}")
@@ -56,18 +56,18 @@ public class CommonClientController {
         return service.getAveragePriceById(id);
     }
 
-    @GetMapping("/addToBasketById/{clientId}/{productId}")
-    public void addToBasketById(@PathVariable int clientId, @PathVariable int productId) {
-        service.addToBasketById(clientId, productId);
+    @GetMapping("/addToCartById/{clientId}/{productId}")
+    public void addToCartById(@PathVariable int clientId, @PathVariable int productId) {
+        service.addToCartById(clientId, productId);
     }
 
-    @GetMapping("/deleteFromBasketById/{clientId}/{productId}")
-    public void deleteFromBasket(@PathVariable int clientId, @PathVariable int productId) {
-        service.deleteFromBasket(clientId, productId);
+    @GetMapping("/deleteFromCartById/{clientId}/{productId}")
+    public void deleteFromCart(@PathVariable int clientId, @PathVariable int productId) {
+        service.deleteFromCart(clientId, productId);
     }
 
-    @GetMapping("/clearBasketById/{clientId}")
-    public void clearBasket(@PathVariable int clientId) {
-        service.clearBasket(clientId);
+    @GetMapping("/clearCartById/{clientId}")
+    public void clearCart(@PathVariable int clientId) {
+        service.clearCart(clientId);
     }
 }
