@@ -29,6 +29,17 @@ public class JpaCart implements Cart {
     )
     private List<JpaProduct> products;
 
+    public JpaCart() {
+    }
+
+    public JpaCart(JpaCustomer customer) {
+        this.customer = customer;
+    }
+
+    public void setProducts(List<JpaProduct> products) {
+        this.products = products;
+    }
+
 
     @Override
     public List<Product> getProducts() {
@@ -38,6 +49,14 @@ public class JpaCart implements Cart {
     @Override
     public void addProduct(Product product) {
         products.add(new JpaProduct(product.getId(),product.getName(), product.getPrice()));
+    }
+
+    public void removeProduct(JpaProduct product) {
+        products.remove(product);
+    }
+
+    public void clear() {
+        products.clear();
     }
 
     @Override

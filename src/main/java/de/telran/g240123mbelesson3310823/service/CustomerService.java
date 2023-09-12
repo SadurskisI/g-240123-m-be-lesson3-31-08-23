@@ -22,9 +22,9 @@ public interface CustomerService {
 
     double getAveragePriceById(int id);
 
-    void addToCartById(int clientId, int productId);
+    void addToCartById(int customerId, int productId);
 
-    void deleteFromCart(int clientId, int productId);
+    void deleteFromCart(int customerId, int productId);
 
-    void clearCart(int clientId);
+    void clearCart(int customerId);
 }

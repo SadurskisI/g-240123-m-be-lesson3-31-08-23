@@ -2,8 +2,10 @@ package de.telran.g240123mbelesson3310823.service.jpa;
 
 import de.telran.g240123mbelesson3310823.domain.entity.Cart;
 import de.telran.g240123mbelesson3310823.domain.entity.Customer;
+import de.telran.g240123mbelesson3310823.domain.entity.Product;
 import de.telran.g240123mbelesson3310823.domain.entity.jpa.JpaCart;
 import de.telran.g240123mbelesson3310823.domain.entity.jpa.JpaCustomer;
+import de.telran.g240123mbelesson3310823.repository.jpa.JpaCartRepository;
 import de.telran.g240123mbelesson3310823.repository.jpa.JpaCustomerRepository;
 import de.telran.g240123mbelesson3310823.repository.jpa.JpaProductRepository;
 import de.telran.g240123mbelesson3310823.service.CustomerService;
@@ -22,6 +24,8 @@ public class JpaCustomerService implements CustomerService {
     @Autowired
     private JpaProductRepository productRepository;
 
+    private JpaCartRepository cartRepository;
+
 
     @Override
     public List<Customer> getAll() {
@@ -35,8 +39,8 @@ public class JpaCustomerService implements CustomerService {
 
     @Override
     public void add(Customer customer) {
-        repository.save(new JpaCustomer(0,customer.getName(),   ));
-        ///////////////////
+        JpaCustomer savedCustomer = repository.save(new JpaCustomer(0,customer.getName()));
+        cartRepository.save(new JpaCart(savedCustomer));
     }
 
     @Override
@@ -56,28 +60,30 @@ public class JpaCustomerService implements CustomerService {
 
     @Override
     public double getTotalPriceById(int id) {
-        return repository.findById(id).get().getCart().getTotalCost();
+        return getById(id).getCart().getTotalCost();
     }
 
     @Override
     public double getAveragePriceById(int id) {
-        return repository.findById(id).get().getCart().getTotalCost() /
-                repository.findById(id).get().getCart().getProducts().size();
+        Cart cart = getById(id).getCart();
+        return cart.getTotalCost() / cart.getProducts().size();
     }
 
     @Override
-    public void addToCartById(int clientId, int productId) {
-        repository.findById(clientId).get().getCart().addProduct();
-        /////////////
+    public void addToCartById(int customerId, int productId) {
+        Customer customer = repository.findById(customerId).orElse(null);
+        Product product = productRepository.findById(productId).orElse(null);
+        Cart cart = customer.getCart();
+        cart.addProduct(product);
     }
 
     @Override
-    public void deleteFromCart(int clientId, int productId) {
-        //////////////
+    public void deleteFromCart(int customerId, int productId) {
+        ((JpaCart) getById(customerId).getCart()).removeProduct(productRepository.findById(productId).orElse(null));
     }
 
     @Override
-    public void clearCart(int clientId) {
-        ////////////
+    public void clearCart(int customerId) {
+        ((JpaCart) getById(customerId).getCart()).clear();
     }
 }
